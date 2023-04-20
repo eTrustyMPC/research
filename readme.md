@@ -2,9 +2,9 @@
 
 Just to keep everything in one place. No specific project structure, or restrictions about content.
 
-If you have something to share - this repo is for you.
+If you have something to share - this is the right place to do it.
 
-Also there is a good idea to write a few words about your content in readme: this will help everyone to be aware about where we are now and what we are going to do next.
+Please write a few words about your your data when you commit a new content. This will help everyone to be aware about what things we have have now, and what thing can become our "next big thing" :)
 
 ## Content 
 
