@@ -6,7 +6,13 @@ If you have something to share - this is the right place to do it.
 
 Please write a few words about your your data when you commit a new content. This will help everyone to be aware about what things we have have now, and what thing can become our "next big thing" :)
 
-## Content 
+## Content
+
+Content grouped by topics. One topic - one `.md` file.
+
+ - [New backend architecture](./new-backend-architecture.md)
+
+
 
 ### Research papers
 
