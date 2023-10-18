@@ -10,8 +10,9 @@ Please write a few words about your your data when you commit a new content. Thi
 
 Content grouped by topics. One topic - one `.md` file.
 
- - [New backend architecture](./new-backend-architecture.md)
+ - [New Backend Architecture](./new-backend-architecture.md)
  - [Multi-tenancy](./multi-tenancy.md)
+ - [Data Model](./data-model.md)
 
 
 
