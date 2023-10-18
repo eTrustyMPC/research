@@ -2,6 +2,12 @@
 
 > Original text and pictures taken from here: https://github.com/supertokens/docs/blob/master/v2/multitenancy/architecture.mdx
 
+![Tenancy](/images/single-tenant-vs-multi-tenant.png)
+
+## Types of Multi-tenancy
+
+![Schema](/images/multitenancy-pillar-schema.png)
+
 ## User Flow
 
 ![User Flow](/images/multi-tennant-user-flow.png)
@@ -19,11 +25,11 @@ There are two levels of abstractions for multi tenancy:
     - Running different applications within your company, all using the same app core instance.
     - Running different dev envs (dev1, dev2, staging, cicd, prod, etc) for the same application.
 
-When you start the core for the first time, backend server creates an app (appId is `"public"`) and one tenant in it (tenantId is `"public"`). From there on, both tenants and apps can be created dynamically at runtime by querying the core. When you create a new app, you also get a new tenant (tenantId is `"public""") as part of that app created for you.
+When you start the core for the first time, backend server creates an app (appId is `"public"`) and one tenant in it (tenantId is `"public"`). From there on, both tenants and apps can be created dynamically at runtime by querying the core. When you create a new app, you also get a new tenant (tenantId is `"public"`) as part of that app created for you.
 
 ## Relation to end users and their data
 In a multi app, multi tenant setup:
-- A user can be uniquely recognised by their appId -> userId. This allows the same user to be shared across tenants (if you want that to happen).
+- A user can be uniquely recognized by their appId -> userId. This allows the same user to be shared across tenants (if you want that to happen).
 - The identity of the user (their email for example) can be uniquely identified by appId -> tenantId -> email. This allows the same email to be used across tenants in a way that they are still treated as different users (they will have different user IDs). The same holds true for phone numbers and third party login profile
 - Roles and permissions are created on an app level, but their mapping to the users are defined on a tenant level. This means that the same user shared across tenants can have different roles / permissions, depending on the tenant they are currently logged into. It also means that you can share the same role / permission set across tenants.
 - Sessions are per tenant (appId -> tenantId -> session handle) and cannot be shared across tenants.
@@ -31,6 +37,7 @@ In a multi app, multi tenant setup:
 
 You can also inspect our database schema to get a better understanding of the data model (find the schema in one of the auth recipes -> pre build UI -> core -> self hosted -> postgresql / mysql).
 
+![Workspaces](/images/parent-workspaces.png)
 
 ## Relation to database
 From a database point of view, you can create multiple apps and tenants in the same database or in different databases. The only restriction is that for an app, you cannot share a user across `tenantA` and `tenantB` if the databases for `tenantA` and `tenantB` are different. Putting it another way, a user can only be shared across the tenants if those tenants are using the same database.
@@ -40,18 +47,10 @@ Unlike tenants, each app will need to have its own app backend and app frontend 
 
 For multiple tenants, you can run the same backend and frontend across all tenants of an app. Each request from the frontend will contain a tenantId identifying that tenant to the backend, and once logged in, each session will also contain that user's tenantId.
 
-## Diagram representation
-![Architecture](/images/multi-tenancy-architecture.png)
-
-- In the above diagram, we see setup for:
-    - **Single tenant, single app (top left)**: This is a simple use case that doesn't require the multi tenant feature.
-    - **Multi tenant single app (top right)**: This is case wherein you have different customers using the same application, but each customer has their own set of users and login methods (each customer is a unique tenant in app).
-    - **Single tenant, multi app (bottom left)**: This is a case wherein you have multiple applications running on the same app core instance, but each application has just a single user pool. This could be two different apps in your organization, or two different dev environments for the same app (or some combination of this).
-    - **Multi tenant, multi app (bottom right)**: This is a case wherein you have multiple applications running on the same app core instance, and each application has its own set of tenants. This could be two different apps in your organization, or two different dev environments for the same app (or some combination of this).
-- The database layer in the above is shown as a single block for each of the scenarios, but for multi tenant, multi app, you can have multiple databases, one for each app, and / or one for each tenant.
-
 # Links
 
+ - Good intro: https://www.gooddata.com/blog/what-multitenancy/
+ - Arch intro: https://www.gooddata.com/blog/multi-tenant-architecture/
  - Nice schemas/pics: https://supertokens.com/features/multi-tenancy
  - Good arch description: https://supertokens.com/docs/multitenancy/architecture
  - Loopback 4 example for multi-tenant app: https://github.com/loopbackio/loopback-next/tree/master/examples/multi-tenancy
